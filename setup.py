@@ -6,7 +6,9 @@ def get_requirements(file_path: str) -> List[str]:
     with open(file_path) as f:
         requirements = f.readlines()
         requirements = [r.strip() for r in requirements]
-        requirements.remove('-e .')
+        
+        if '-e .' in requirements:
+            requirements.remove('-e .')
         
     return requirements
 
