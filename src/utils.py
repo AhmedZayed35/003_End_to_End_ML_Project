@@ -44,24 +44,26 @@ def evaluate_models(X_train, X_test, y_train, y_test, models):
             train_mse = mean_absolute_error(y_train, train_predictions)
             train_r2 = r2_score(y_train, train_predictions)
             
-            tesr_predictions = best_model.predict(X_test)
-            test_rmse = np.sqrt(mean_squared_error(y_test, tesr_predictions))
-            test_mae = mean_absolute_error(y_test, tesr_predictions)
-            test_r2 = r2_score(y_test, tesr_predictions)
+            test_predictions = best_model.predict(X_test)
+            test_rmse = np.sqrt(mean_squared_error(y_test, test_predictions))
+            test_mae = mean_absolute_error(y_test, test_predictions)
+            test_r2 = r2_score(y_test, test_predictions)
             
             train_report.loc[train_report.shape[0]] = {'Model': model_name, 'RMSE': train_rmse, 'MAE': train_mse, 'R2': train_r2}
             test_report.loc[test_report.shape[0]] = {'Model': model_name, 'RMSE': test_rmse, 'MAE': test_mae, 'R2': test_r2}
             models_list.append((model_name, best_model, grid_search.best_params_))
-           
             
+            logging.info(f'Evaluation completed for {model_name}')
+           
+        logging.info('Evaluation completed for all models')
         return train_report, test_report, models_list
             
     except Exception as e:
         logging.error(e)
         raise CustomException(e, sys)
     
-def get_best_model_obj(models_list, model_name):
+def get_best_model_obj(models_list, target_model_name):
     '''Returns the best model object from the list of models'''
     for model_name, model_obj, _ in models_list:
-        if model_name == model_name:
+        if model_name == target_model_name:
             return model_obj

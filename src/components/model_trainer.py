@@ -54,18 +54,20 @@ class ModelTrainer:
                     'criterion': ['mse', 'friedman_mse', 'mae'],
                     'splitter': ['best', 'random'],
                     'max_depth': [5, 8, 15, 25, 30, None],
-                    'max_features': ['log2', 'sqrt', None]
+                    'max_features': ['log2', 'sqrt', None],
+                    'random_state': [42]
                 }),
                 ('KNeighbors Regressor', KNeighborsRegressor(), {
                     'n_neighbors': [3, 5, 10],
                     'weights': ['uniform', 'distance'],
-                    'algorithm': ['auto', 'ball_tree', 'kd_tree']
+                    'algorithm': ['auto', 'ball_tree', 'kd_tree'],
                 }),
                 ('XGBRegressor', XGBRegressor(), {
                     'n_estimators': [100, 200, 300],
                     'max_depth': [5, 8, 15, 25, 30, None],
                     'learning_rate': [0.01, 0.05, 0.1],
                     'booster': ['gbtree', 'gblinear', 'dart'],
+                    'random_state': [42]
                 }),
                 ('Cat Boost Regressor', CatBoostRegressor(), {
                     'iterations': [100, 200, 300],
@@ -76,18 +78,15 @@ class ModelTrainer:
                 })
             ]
             
-            _, test_report, models_list = evaluate_models(X_train= X_train, X_test= X_test, y_train= y_train, y_test= y_test, models= models)
+            _, test_report, trained_models_list = evaluate_models(X_train= X_train, X_test= X_test, y_train= y_train, y_test= y_test, models= models)
             logging.info(f"models test report: {test_report.to_dict()}")
             
             best_model_report = test_report.sort_values(by='R2', ascending=False).iloc[0]
-            
             if best_model_report['R2'] < 0.6:
                 raise CustomException('No model has R2 score greater than 0.6', sys)
-            
             logging.info(f'Best model is {best_model_report["Model"]} with R2 score of {best_model_report["R2"]}')
             
-            best_model = get_best_model_obj(models_list, best_model_report['Model'])
-            
+            best_model = get_best_model_obj(trained_models_list, best_model_report['Model'])
             save_object(best_model, self.config.model_path)
             logging.info(f'Model saved at {self.config.model_path}')
             
