@@ -4,8 +4,8 @@ import pandas as pd
 
 from src.logger import logging
 from src.exception import CustomException
-from src.components.data_transformation import DataTransformation, DataTransformationConfig
-from src.components.model_trainer import ModelTrainer, ModelTrainerConfig
+from src.components.data_transformation import DataTransformation
+from src.components.model_trainer import ModelTrainer
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
 
@@ -51,4 +51,6 @@ if __name__ == '__main__':
     
     model_trainer = ModelTrainer()
     print(model_trainer.initiate_model_training(X_train, X_test, y_train, y_test))
+    
+    logging.info("test")
     

@@ -25,6 +25,19 @@ def save_object(obj, path):
         logging.error(e)
         raise CustomException(e, sys)
     
+    
+def load_object(path):
+    '''Loads the object from the pickle file'''
+    try:
+        with open(path, 'rb') as f:
+            obj = dill.load(f)
+
+        return obj
+    
+    except Exception as e:
+        logging.error(e)
+        raise CustomException(e, sys)
+    
 
 def evaluate_models(X_train, X_test, y_train, y_test, models):
     '''Evaluates the models and returns the train and test reports'''
@@ -67,3 +80,4 @@ def get_best_model_obj(models_list, target_model_name):
     for model_name, model_obj, _ in models_list:
         if model_name == target_model_name:
             return model_obj
+        
