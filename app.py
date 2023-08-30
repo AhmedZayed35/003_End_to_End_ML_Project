@@ -1,6 +1,3 @@
-import numpy as np
-import pandas as pd
-
 from flask import Flask, render_template, request
 
 from src.logger import logging
@@ -39,5 +36,5 @@ def predict_datapoint():
         return render_template('home.html', results=prediction)
     
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8000)
+    app.run()
         
