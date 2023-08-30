@@ -12,7 +12,7 @@ from sklearn.neighbors import KNeighborsRegressor
 from xgboost import XGBRegressor
 from catboost import CatBoostRegressor
 
-from src.logger import logging
+# from src.logger import logging
 from src.exception import CustomException
 from src.utils import save_object, evaluate_models, get_best_model_obj
 
@@ -27,7 +27,7 @@ class ModelTrainer:
     
     def initiate_model_training(self, X_train, X_test, y_train, y_test):
         try:
-            logging.info('Initializing model training')
+            # logging.info('Initializing model training')
             models = [
                 ('Random Forest Regressor', RandomForestRegressor(), {
                     'n_estimators': [100, 200, 300],
@@ -79,21 +79,21 @@ class ModelTrainer:
             ]
             
             _, test_report, trained_models_list = evaluate_models(X_train= X_train, X_test= X_test, y_train= y_train, y_test= y_test, models= models)
-            logging.info(f"models test report: {test_report.to_dict()}")
+            # logging.info(f"models test report: {test_report.to_dict()}")
             
             best_model_report = test_report.sort_values(by='R2', ascending=False).iloc[0]
             if best_model_report['R2'] < 0.6:
                 raise CustomException('No model has R2 score greater than 0.6', sys)
-            logging.info(f'Best model is {best_model_report["Model"]} with R2 score of {best_model_report["R2"]}')
+            # logging.info(f'Best model is {best_model_report["Model"]} with R2 score of {best_model_report["R2"]}')
             
             best_model = get_best_model_obj(trained_models_list, best_model_report['Model'])
             save_object(best_model, self.config.model_path)
-            logging.info(f'Model saved at {self.config.model_path}')
+            # logging.info(f'Model saved at {self.config.model_path}')
             
             return r2_score(y_test, best_model.predict(X_test))
             
             
         except Exception as e:
-            logging.error(e)
+            # logging.error(e)
             raise CustomException(e, sys)
 

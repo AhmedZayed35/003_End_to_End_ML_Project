@@ -7,7 +7,7 @@ import numpy as np
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score, make_scorer
 from sklearn.model_selection import GridSearchCV
 
-from src.logger import logging
+# from src.logger import logging
 from src.exception import CustomException
 
 
@@ -19,10 +19,10 @@ def save_object(obj, path):
         with open(path, 'wb') as f:
             dill.dump(obj, f)
             
-        logging.info(f'Object saved at {path}')
+        # logging.info(f'Object saved at {path}')
         
     except Exception as e:
-        logging.error(e)
+        # logging.error(e)
         raise CustomException(e, sys)
     
     
@@ -35,7 +35,7 @@ def load_object(path):
         return obj
     
     except Exception as e:
-        logging.error(e)
+        # logging.error(e)
         raise CustomException(e, sys)
     
 
@@ -66,13 +66,13 @@ def evaluate_models(X_train, X_test, y_train, y_test, models):
             test_report.loc[test_report.shape[0]] = {'Model': model_name, 'RMSE': test_rmse, 'MAE': test_mae, 'R2': test_r2}
             models_list.append((model_name, best_model, grid_search.best_params_))
             
-            logging.info(f'Evaluation completed for {model_name}')
+            # logging.info(f'Evaluation completed for {model_name}')
            
-        logging.info('Evaluation completed for all models')
+        # logging.info('Evaluation completed for all models')
         return train_report, test_report, models_list
             
     except Exception as e:
-        logging.error(e)
+        # logging.error(e)
         raise CustomException(e, sys)
     
 def get_best_model_obj(models_list, target_model_name):

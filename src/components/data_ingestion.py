@@ -2,7 +2,7 @@ import sys
 import os
 import pandas as pd
 
-from src.logger import logging
+# from src.logger import logging
 from src.exception import CustomException
 from src.components.data_transformation import DataTransformation
 from src.components.model_trainer import ModelTrainer
@@ -21,7 +21,7 @@ class DataIngestion:
         self.config = DataIngestionConfig()
         
     def initialize_data_ingestion(self):
-        logging.info("Initializing data ingestion")
+        # logging.info("Initializing data ingestion")
         try:
             df = pd.read_csv('notebook\data\stud.csv')
             os.makedirs('artifacts', exist_ok=True)
@@ -31,7 +31,7 @@ class DataIngestion:
             train_set.to_csv(self.config.train_data_path, index=False, header=True)
             test_set.to_csv(self.config.test_data_path, index=False, header=True)
             
-            logging.info("Data ingestion completed")
+            # logging.info("Data ingestion completed")
             
             return(
                 self.config.train_data_path, 
@@ -39,7 +39,7 @@ class DataIngestion:
                 )
             
         except Exception as e:
-            logging.error(e)
+            # logging.error(e)
             raise CustomException(e, sys)
 
 if __name__ == '__main__':
@@ -52,5 +52,5 @@ if __name__ == '__main__':
     model_trainer = ModelTrainer()
     print(model_trainer.initiate_model_training(X_train, X_test, y_train, y_test))
     
-    logging.info("test")
+    # logging.info("test")
     

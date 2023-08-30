@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 
-from src.logger import logging
+# from src.logger import logging
 from src.pipelines.predict_pipeline import PredictPipeline, CustomData
 
 # Create flask app
@@ -28,7 +28,7 @@ def predict_datapoint():
         )
         
         data_df = data.get_data_as_dataframe()
-        logging.info(f'Predicting for data point: {data_df.to_dict()}')
+        # logging.info(f'Predicting for data point: {data_df.to_dict()}')
         
         prediction_pipeline = PredictPipeline()
         prediction = prediction_pipeline.predict(data_df)

@@ -2,7 +2,7 @@ import sys
 
 import pandas as pd
 
-from src.logger import logging
+# from src.logger import logging
 from src.exception import CustomException
 from src.utils import load_object
 
@@ -24,7 +24,7 @@ class PredictPipeline:
             return preds[0]
         
         except Exception as e:
-            logging.error(e)
+            # logging.error(e)
             raise CustomException(e, sys)
     
 class CustomData:
@@ -60,5 +60,5 @@ class CustomData:
                                 })
         
         except Exception as e:
-            logging.error(e)
+            # logging.error(e)
             raise CustomException(e, sys)
