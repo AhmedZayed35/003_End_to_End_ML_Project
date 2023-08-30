@@ -3,13 +3,11 @@ from typing import List
 
 # get requirements from requirements.txt
 def get_requirements(file_path: str) -> List[str]:
-    with open(file_path) as f:
+    with open(file_path, encoding='utf-8') as f:
         requirements = f.readlines()
         requirements = [r.strip() for r in requirements]
-        
-        if '-e .' in requirements:
-            requirements.remove('-e .')
-        
+        requirements = [r for r in requirements if r != '-e .']  # Remove -e . entry
+
     return requirements
 
 setup(
