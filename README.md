@@ -1,4 +1,4 @@
-# Student Performance Prediction using Reggression
+# Student Performance Prediction using Regression
 
 an End-to-End ML project for predicting a student's performance in an exam based on many factors.
 
@@ -8,14 +8,14 @@ an End-to-End ML project for predicting a student's performance in an exam based
 - Custom Exceptions.
 - Data preprocessing and transformation Pipelines.
 - Exploratory Data Analysis (EDA) using various visualizations.
-- Application of the many Reggresion models and comparing between them.
-- Hypeparemeter tuning.
+- Application of the many Regression models and comparison between them.
+- Hyperparameter tuning.
 - Validation Techniques.
 - Deployment to Azure using Github actions.
 
 ## Getting Started
 
-### Prerequisites
+### Prerequisites  
 
 You can install the required packages using the requirements.txt file provided in this repository. To install the dependencies, run the following command:
 
@@ -35,3 +35,6 @@ The dataset "stud.csv" should be placed in the "notebook/data" directory within 
 - AdaBoost Regressor
 - XGBoost Regressor
 - CatBoost Regressor
+
+(P.S.) I took the app down after successfully deploying it.
+
